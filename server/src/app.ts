@@ -22,7 +22,7 @@ app.use(helmet());
 app.use(compression({ filter: compressFilter }));
 
 app.get('/', (_req: Request, res: Response) => {
-  res.send('Hello World!');
+  res.send('Helloooo Worlddddd!');
 });
 
 export default app;

@@ -21,6 +21,7 @@ const logger = createLogger({
 // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
 //
 if (config.node_env !== 'production') {
+  console.log('yeah');
   logger.add(
     new transports.Console({
       format: format.simple(),
