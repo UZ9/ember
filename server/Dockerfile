@@ -1,6 +1,6 @@
 FROM node:18-alpine
 
-COPY . /usr/src/server
+COPY ../frontend /usr/src/server
 
 # Create server directory
 WORKDIR /usr/src/server
