@@ -1,15 +1,18 @@
-import express, { Express, Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import compression from 'compression';
 import compressFilter from './utils/compressFilter.util';
 import config from './config/config';
+import WebSocket from 'ws';
+import http from 'http';
 
-const app: Express = express();
+const app = express();
+const server = http.createServer(app);
+const wss = new WebSocket.Server({ server });
 
 app.use(
   cors({
-    // origin is given a array if we want to have multiple origins later
     origin: [config.cors_origin],
     credentials: true,
   })
@@ -23,6 +26,15 @@ app.use(compression({ filter: compressFilter }));
 
 app.get('/', (_req: Request, res: Response) => {
   res.send('Helloooo Worlddddd!');
+});
+
+wss.on('connection', () => {
+    console.log('YEAHHH');
+
+});
+
+server.listen(config.websocket_port, () => {
+    console.log(`Successfully started websocket server on port ${config.websocket_port}`);
 });
 
 export default app;
