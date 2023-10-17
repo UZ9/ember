@@ -28,8 +28,21 @@ app.get('/', (_req: Request, res: Response) => {
   res.send('Helloooo Worlddddd!');
 });
 
-wss.on('connection', () => {
-    console.log('YEAHHH');
+wss.on('connection', (ws) => {
+
+    const boxCoords : number[][] = [];
+
+    for (let i = 0; i < 10; i++) {
+        for (let j = 0; j < 10; j++) {
+            boxCoords.push([i, j, 0]);
+        }
+    }
+
+    const coords = { boxCoords };
+
+
+
+    ws.send(JSON.stringify(coords));
 
 });
 
