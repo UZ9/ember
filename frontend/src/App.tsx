@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Canvas, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
-import { OrbitControls, Stats } from "@react-three/drei";
+import { Canvas, extend, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
+import { Environment, Lightformer, OrbitControls, Plane, Sky, Stats } from "@react-three/drei";
+import TerrainModel from "./TerrainModel";
+import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
+import { useControls } from "leva";
 
+extend({ N8AO })
 
 function Box(props: ThreeElements["mesh"]) {
     const ref = useRef<THREE.Mesh>(null!);
@@ -29,11 +33,23 @@ type BoxInput = {
 }
 
 function App() {
+    const planeGeometryRef = useRef(null);
+
+    const { n8aoEnabled } = useControls({ n8aoEnabled: false })
 
     const [boxCoords, setBoxCoords] = useState<Vector3[]>([]);
 
+    useLayoutEffect(() => {
+        console.log("ref");
+
+        if (planeGeometryRef.current !== null) {
+            alert("Yes");
+        }
+    }, []);
+
     useEffect(() => {
         const socket = new WebSocket("ws://localhost:4000");
+
 
         socket.onmessage = (event) => {
             let data: BoxInput = JSON.parse(event.data);
@@ -47,20 +63,41 @@ function App() {
 
     return (
         <div className={"canvas-wrapper"}>
-            <Canvas>
+            <Canvas shadows={true}>
+                <fog attach="fog" args={['white', 0, 300]} />
                 <Stats />
+                <Sky rayleigh={20} sunPosition={[100, 10, 100]} />
                 <OrbitControls />
-                <ambientLight />
-                <pointLight intensity={1000} position={[10, 10, 10]} />
+                <ambientLight intensity={2} />
+                <directionalLight shadow-mapSize={[1024, 1024]} castShadow={true} intensity={10} position={[10, 10, 10]} />
 
-                {
-                    boxCoords && boxCoords.map(coords => {
-                        return (
-                            <Box position={coords}/>
-                        )
-                    })
-                }
+                {/*<TerrainModel/>*/}
 
+                <mesh rotation={[Math.PI / 2, 0, 0]}>
+                    <planeGeometry ref={planeGeometryRef} args={[ 10, 10, 10, 10 ]} />
+                    <meshStandardMaterial wireframe={true}/>
+                </mesh>
+
+                <Environment resolution={512}>
+                    {/* Ceiling */}
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, -9]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, -6]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, -3]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, 0]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, 3]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, 6]} scale={[10, 1, 1]} />
+                    <Lightformer intensity={2} rotation-x={Math.PI / 2} position={[0, 4, 9]} scale={[10, 1, 1]} />
+                    {/* Sides */}
+                    <Lightformer intensity={2} rotation-y={Math.PI / 2} position={[-50, 2, 0]} scale={[100, 2, 1]} />
+                    <Lightformer intensity={2} rotation-y={-Math.PI / 2} position={[50, 2, 0]} scale={[100, 2, 1]} />
+                    {/* Key */}
+                    <Lightformer form="ring" color="red" intensity={10} scale={2} position={[10, 5, 10]} onUpdate={(self) => self.lookAt(0, 0, 0)} />
+                </Environment>
+
+                <EffectComposer>
+                    {/*<Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />*/}
+                    <N8AO/>
+                </EffectComposer>
             </Canvas>
         </div>
     );
