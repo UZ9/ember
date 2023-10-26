@@ -1,11 +1,12 @@
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Canvas, extend, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
+import { Canvas, extend, MeshProps, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
 import { Environment, Lightformer, OrbitControls, Plane, Sky, Stats } from "@react-three/drei";
 import TerrainModel from "./TerrainModel";
 import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { useControls } from "leva";
+import { BufferAttribute, PlaneGeometry } from "three";
 
 extend({ N8AO })
 
@@ -33,19 +34,9 @@ type BoxInput = {
 }
 
 function App() {
-    const planeGeometryRef = useRef(null);
 
-    const { n8aoEnabled } = useControls({ n8aoEnabled: false })
 
     const [boxCoords, setBoxCoords] = useState<Vector3[]>([]);
-
-    useLayoutEffect(() => {
-        console.log("ref");
-
-        if (planeGeometryRef.current !== null) {
-            alert("Yes");
-        }
-    }, []);
 
     useEffect(() => {
         const socket = new WebSocket("ws://localhost:4000");
@@ -61,6 +52,8 @@ function App() {
         };
     }, []);
 
+    console.log("Setting...");
+
     return (
         <div className={"canvas-wrapper"}>
             <Canvas shadows={true}>
@@ -68,15 +61,12 @@ function App() {
                 <Stats />
                 <Sky rayleigh={20} sunPosition={[100, 10, 100]} />
                 <OrbitControls />
-                <ambientLight intensity={2} />
-                <directionalLight shadow-mapSize={[1024, 1024]} castShadow={true} intensity={10} position={[10, 10, 10]} />
+                <ambientLight intensity={0.1} />
+                <directionalLight shadow-mapSize={[1024, 1024]} castShadow={true} intensity={1} position={[10, 10, 10]} />
 
-                {/*<TerrainModel/>*/}
+                <TerrainModel/>
 
-                <mesh rotation={[Math.PI / 2, 0, 0]}>
-                    <planeGeometry ref={planeGeometryRef} args={[ 10, 10, 10, 10 ]} />
-                    <meshStandardMaterial wireframe={true}/>
-                </mesh>
+
 
                 <Environment resolution={512}>
                     {/* Ceiling */}
@@ -94,10 +84,10 @@ function App() {
                     <Lightformer form="ring" color="red" intensity={10} scale={2} position={[10, 5, 10]} onUpdate={(self) => self.lookAt(0, 0, 0)} />
                 </Environment>
 
-                <EffectComposer>
-                    {/*<Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />*/}
-                    <N8AO/>
-                </EffectComposer>
+                {/*<EffectComposer>*/}
+                {/*    /!*<Bloom luminanceThreshold={0} luminanceSmoothing={0.9} height={300} />*!/*/}
+                {/*    <N8AO/>*/}
+                {/*</EffectComposer>*/}
             </Canvas>
         </div>
     );
