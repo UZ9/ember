@@ -40,6 +40,12 @@ wss.on('connection', (ws) => {
 
     const coords = { boxCoords };
 
+    ws.on('message', (data) => {
+      wss.clients.forEach(client => {
+        client.send('ok');
+      });
+    });
+
 
 
     ws.send(JSON.stringify(coords));
