@@ -1,3 +1,5 @@
+import { Position } from "./Entity";
+
 export interface Moveable {
-    moveTo: (x: number, y: number) => void;
+    moveTo: (position: Position) => void;
 }

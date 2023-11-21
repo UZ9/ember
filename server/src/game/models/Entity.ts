@@ -4,9 +4,17 @@ export type Position = {
 }
 
 export abstract class Entity {
-    protected position: Position;
+    protected _position: Position;
     
     protected constructor() {
-        this.position = { x: 0, y: 0 };
+        this._position = { x: 0, y: 0 };
+    }
+
+    get position() {
+        return this._position;
+    }
+
+    set position(position: Position) {
+        this._position = position;
     }
 }

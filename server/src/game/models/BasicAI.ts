@@ -1,4 +1,4 @@
-import { Entity } from "./Entity";
+import { Entity, Position } from "./Entity";
 import type { Moveable } from "./Moveable";
 
 export class BasicAI extends Entity implements Moveable {
@@ -6,8 +6,8 @@ export class BasicAI extends Entity implements Moveable {
         super();
     }
 
-    public moveTo(x: number, y: number): void {
-        this.position = { x, y };
+    public moveTo(position: Position): void {
+        this.position = position;
     }
 
     public printState() {

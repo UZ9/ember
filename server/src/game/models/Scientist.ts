@@ -1,15 +1,15 @@
 export abstract class Scientist {
-    private foodLevel: number;
+    private _foodLevel: number;
 
     protected constructor(foodLevel: number) {
-        this.foodLevel = foodLevel;
+        this._foodLevel = foodLevel;
     }
 
-    public getFoodLevel(): number {
-        return this.foodLevel;
+    get foodLevel() {
+        return this._foodLevel;
     }
 
-    public setFoodLevel(foodLevel: number) {
-        this.foodLevel = foodLevel;
+    set foodLevel(foodLevel: number) {
+        this._foodLevel = foodLevel;
     }
 }
