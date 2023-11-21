@@ -13,4 +13,8 @@ export class BasicAI extends Entity implements Moveable {
     public printState() {
         console.log(JSON.stringify(this.position));
     }
+
+    public tick() {
+        console.log("yes.");   
+    };
 }

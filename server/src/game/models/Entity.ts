@@ -1,9 +1,11 @@
+import { Tickable } from "./Tickable";
+
 export type Position = {
     x: number,
     y: number
 }
 
-export abstract class Entity {
+export abstract class Entity implements Tickable {
     protected _position: Position;
     
     protected constructor() {
@@ -17,4 +19,6 @@ export abstract class Entity {
     set position(position: Position) {
         this._position = position;
     }
+
+    abstract tick(): void;
 }
