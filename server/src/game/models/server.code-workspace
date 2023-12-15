@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"name": "Server",
+			"path": "../../.."
+		},
+		{
+			"name": "Client",
+			"path": "../../../../frontend"
+		},
+		{
+			"name": "Root",
+			"path": "../../../.."
+		}
+	],
+	"settings": {}
+}

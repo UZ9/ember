@@ -1,13 +1,17 @@
-import { Entity, Position } from "./Entity";
-import type { Moveable } from "./Moveable";
+import { MoveableComponent } from "../engine/component/MoveableComponent";
+import { Entity } from "./Entity";
 
-export class BasicAI extends Entity implements Moveable {
+export class BasicAI extends Entity {
+    public onInitialize =  () => {
+        this.addComponent(new )
+    };
+
+    public onUpdate = () => {
+        return;
+    };
+
     public constructor() {
         super();
-    }
-
-    public moveTo(position: Position): void {
-        this.position = position;
     }
 
     public printState() {
