@@ -1,23 +1,13 @@
-import { Entity } from "../models/Entity";
+import { EntityManager } from "../models/EntityManager";
 
 export class GameManager {
-    private static _instance: GameManager;
-    
-    private _entities: Entity[];
+    private readonly _entityManager: EntityManager;
 
     constructor() {
-        this._entities = [];
+        this._entityManager = new EntityManager();
     }
 
-    public get entities() {
-        return this._entities;
-    }
-
-    public static get Instance() {
-        return this._instance || (this._instance = new this());
-    }
-
-    public static registerEntity(entity: Entity) {
-        this.Instance._entities.push(entity);
+    public get entityManager() {
+        return this._entityManager;
     }
 }

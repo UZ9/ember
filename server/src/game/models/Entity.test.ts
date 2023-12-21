@@ -15,16 +15,7 @@ class EntityMock extends Entity {
 
 class ComponentMock1 implements Component {
     public entity: EntityMock = new EntityMock();
-} 
-
-
-class ComponentMock2 implements Component {
-    public entity: EntityMock = new EntityMock();
-} 
-
-class ComponentMock3 implements Component {
-    public entity: EntityMock = new EntityMock();
-} 
+}
 
 describe('Entity Tests', () => {
     let e: EntityMock;
@@ -57,6 +48,30 @@ describe('Entity Tests', () => {
         e.removeComponent(ComponentMock1);
 
         expect(e.components).toHaveLength(0);
+
+        //
+    });
+
+    it("should throw an error if the component doesn't exist", () => {
+       const invalidGet = () => {
+           e.getComponent(ComponentMock1);
+       };
+
+       expect(invalidGet).toThrow(Error);
+    });
+
+    it("should return false if it doesn't have a component", () => {
+        const hasComponent = e.hasComponent(ComponentMock1);
+
+        expect(hasComponent).toBeFalsy();
+    });
+
+    it("should return true if it does have a component", () => {
+        e.addComponent(component1);
+
+        const hasComponent = e.hasComponent(ComponentMock1);
+
+        expect(hasComponent).toBeTruthy();
     });
 
 

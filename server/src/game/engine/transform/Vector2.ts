@@ -8,11 +8,11 @@ export default class Vector2 {
     }
 
     public get x(): number {
-        return this.x;
+        return this._x;
     }
 
     public get y(): number {
-        return this.y;
+        return this._y;
     }
 
     public add(other: Vector2): Vector2 {

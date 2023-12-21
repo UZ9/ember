@@ -13,12 +13,4 @@ export class BasicAI extends Entity {
     public constructor() {
         super();
     }
-
-    public printState() {
-        console.log(this.getComponent<MoveableComponent>(MoveableComponent).position);
-    }
-
-    public tick() {
-        console.log("yes.");   
-    };
 }

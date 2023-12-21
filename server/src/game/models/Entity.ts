@@ -1,8 +1,9 @@
 import { Component } from "../engine/component/Component";
+import { Tickable } from "./Tickable";
 
 type constr<T> = { new(...args: unknown[]): T }
 
-export abstract class Entity {
+export abstract class Entity implements Tickable {
     protected _components: Component[] = [];
 
     public get components(): Component[] {

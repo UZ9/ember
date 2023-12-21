@@ -1,11 +1,21 @@
-import { MAX_ENTITIES } from "./Entity";
+import { Entity } from "./Entity";
 
-class EntityManager {
-    private _availableEntities: number[] = [];
+export class EntityManager extends Entity {
+    private _entities: Entity[] = [];
 
-    public constructor() {
-        for (let entity = 0; entity < MAX_ENTITIES; entity++) {
-            this._availableEntities.push(entity);
-        }
-    }   
+    public onInitialize = () => {
+        this._entities.forEach(e => e.onInitialize());
+    };
+
+    public onUpdate = () => {
+        this._entities.forEach(e => e.onUpdate());
+    };
+
+    public registerEntity(entity: Entity) {
+        this._entities.push(entity);
+    }
+
+    public get entities(): Entity[] {
+        return this._entities;
+    }
 }

@@ -5,3 +5,4 @@ frontend/bun.lockb
 frontend/public/terrain_low_poly.glb
 
 node_modules
+.idea/discord.xml

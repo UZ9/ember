@@ -20,7 +20,7 @@ export class MoveableComponent implements Component {
         this._position = newPosition;
     }
 
-    public set addPosition(position: Vector2) {
+    public addPosition(position: Vector2) {
         this._position = this._position.add(position);
     }
 }
