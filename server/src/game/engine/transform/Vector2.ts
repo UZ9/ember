@@ -14,4 +14,8 @@ export default class Vector2 {
     public get y(): number {
         return this.y;
     }
+
+    public add(other: Vector2): Vector2 {
+        return new Vector2(this._x + other.x, this._y + other.y);
+    }
 }

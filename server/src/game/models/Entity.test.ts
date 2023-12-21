@@ -3,7 +3,15 @@ import { Component } from "../engine/component/Component";
 import { Entity } from "./Entity";
 
 // Mock classes
-class EntityMock extends Entity { }
+class EntityMock extends Entity {
+    public onInitialize = (): void => {
+        return;
+    };
+
+    public onUpdate = (): void => {
+        return;
+    };
+}
 
 class ComponentMock1 implements Component {
     public entity: EntityMock = new EntityMock();

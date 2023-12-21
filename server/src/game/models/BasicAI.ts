@@ -3,7 +3,7 @@ import { Entity } from "./Entity";
 
 export class BasicAI extends Entity {
     public onInitialize =  () => {
-        this.addComponent(new )
+        this.addComponent(new MoveableComponent());
     };
 
     public onUpdate = () => {
@@ -15,7 +15,7 @@ export class BasicAI extends Entity {
     }
 
     public printState() {
-        console.log(JSON.stringify(this.position));
+        console.log(this.getComponent<MoveableComponent>(MoveableComponent).position);
     }
 
     public tick() {
