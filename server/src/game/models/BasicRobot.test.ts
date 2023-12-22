@@ -1,11 +1,11 @@
-import { BasicAI } from "./BasicAI";
+import { BasicRobot } from "./BasicRobot";
 import { MoveableComponent } from "../engine/component/MoveableComponent";
 
-describe('BasicAI Tests', () => {
-    let ai: BasicAI;
+describe('BasicRobot Tests', () => {
+    let ai: BasicRobot;
 
     beforeEach(() => {
-        ai = new BasicAI();
+        ai = new BasicRobot();
 
         ai.onInitialize();
     });

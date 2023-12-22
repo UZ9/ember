@@ -1,4 +1,4 @@
-import { BasicAI } from "./BasicAI";
+import { BasicRobot } from "./BasicRobot";
 import { MoveableComponent } from "../engine/component/MoveableComponent";
 import { EntityManager } from "./EntityManager";
 import { Entity } from "./Entity";

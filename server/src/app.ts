@@ -6,6 +6,7 @@ import compressFilter from './utils/compressFilter.util';
 import config from './config/config';
 import WebSocket from 'ws';
 import http from 'http';
+import { CodeProcessor } from "./game/engine/processor/CodeProcessor";
 
 const app = express();
 const server = http.createServer(app);
@@ -25,7 +26,9 @@ app.use(helmet());
 app.use(compression({ filter: compressFilter }));
 
 app.get('/', (_req: Request, res: Response) => {
-  res.send('Helloooo Worlddddd!');
+    new CodeProcessor();
+
+    res.send('Helloooo Worlddddd!');
 });
 
 wss.on('connection', (ws) => {

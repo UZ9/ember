@@ -1,19 +1,13 @@
 import app from "./app";
 import config from "./config/config";
-import { BasicAI } from "./game/models/BasicAI";
+import { BasicRobot } from "./game/models/BasicRobot";
 import logger from "./middleware/logger";
 
 //
 const server = app.listen(parseInt(config.port), () => {
     logger.log("info", `Server is running on Port: ${config.port}`);
 
-    const ai = new BasicAI();
-
-    ai.printState();
-
-    ai.moveTo(3, 4);
-
-    ai.printState();
+    const ai = new BasicRobot();
 });
 
 process.on("SIGTERM", () => {
