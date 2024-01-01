@@ -1,11 +1,8 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Canvas, extend, MeshProps, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
+import { Canvas, extend, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
 import { Environment, Lightformer, OrbitControls, Plane, Sky, Stats } from "@react-three/drei";
-import TerrainModel from "./TerrainModel";
-import { useControls } from "leva";
-import { BufferAttribute, PlaneGeometry } from "three";
 // @ts-ignore
 import { N8AO } from "@react-three/postprocessing";
 
