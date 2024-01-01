@@ -2,9 +2,10 @@ import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from
 import logo from "./logo.svg";
 import "./App.css";
 import { Canvas, extend, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
-import { Environment, Lightformer, OrbitControls, Plane, Sky, Stats } from "@react-three/drei";
+import { Environment, Lightformer, OrbitControls, PerspectiveCamera, Plane, Sky, Stats } from "@react-three/drei";
 // @ts-ignore
 import { N8AO } from "@react-three/postprocessing";
+import { GRID_SHADER } from "./shaders/GridShader";
 
 extend({ N8AO })
 
@@ -52,19 +53,29 @@ function App() {
 
     console.log("Setting...");
 
+    const tileGridUniforms = {
+        // Resolution of the grid
+        // .335 - exact resolution for 6x6 grid
+        resolution: { value: .335 }
+    }
+
+
     return (
         <div className={"canvas-wrapper"}>
-            <Canvas shadows={true}>
+            <Canvas shadows={true} camera={{ position: [3, 4.5, 0] }}>
                 <fog attach="fog" args={['white', 0, 300]} />
                 <Stats />
                 <Sky rayleigh={20} sunPosition={[100, 10, 100]} />
-                <OrbitControls />
+                <OrbitControls target={[ 0, 1, 0 ]} />
                 <ambientLight intensity={0.1} />
                 <directionalLight shadow-mapSize={[1024, 1024]} castShadow={true} intensity={1} position={[10, 10, 10]} />
 
                 {/*<TerrainModel/>*/}
 
-                <Plane rotation={[-Math.PI / 2, 0, 0]}/>
+                <mesh rotation={[-Math.PI / 2, 0, 0]} scale={[5, 5, 5]}>
+                    <boxGeometry/>
+                    <shaderMaterial fragmentShader={GRID_SHADER.fragmentShader} vertexShader={GRID_SHADER.vertexShader} uniforms={tileGridUniforms}/>
+                </mesh>
 
 
                 <Environment resolution={512}>
