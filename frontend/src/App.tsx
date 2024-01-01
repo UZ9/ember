@@ -56,7 +56,7 @@ function App() {
     const tileGridUniforms = {
         // Resolution of the grid
         // .335 - exact resolution for 6x6 grid
-        resolution: { value: .335 }
+        resolution: { value: .2875 }
     }
 
 
