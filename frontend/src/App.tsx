@@ -4,9 +4,10 @@ import "./App.css";
 import { Canvas, extend, MeshProps, ThreeElements, useFrame, Vector3 } from "@react-three/fiber";
 import { Environment, Lightformer, OrbitControls, Plane, Sky, Stats } from "@react-three/drei";
 import TerrainModel from "./TerrainModel";
-import { Bloom, EffectComposer, N8AO } from "@react-three/postprocessing";
 import { useControls } from "leva";
 import { BufferAttribute, PlaneGeometry } from "three";
+// @ts-ignore
+import { N8AO } from "@react-three/postprocessing";
 
 extend({ N8AO })
 
@@ -64,8 +65,9 @@ function App() {
                 <ambientLight intensity={0.1} />
                 <directionalLight shadow-mapSize={[1024, 1024]} castShadow={true} intensity={1} position={[10, 10, 10]} />
 
-                <TerrainModel/>
+                {/*<TerrainModel/>*/}
 
+                <Plane rotation={[-Math.PI / 2, 0, 0]}/>
 
 
                 <Environment resolution={512}>

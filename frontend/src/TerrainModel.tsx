@@ -1,5 +1,4 @@
 import { useFrame, useLoader } from "@react-three/fiber";
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import React, { useEffect, useMemo, useRef } from "react";
 import { BufferAttribute, Color, DoubleSide, PlaneGeometry } from "three";
 import { useControls } from "leva";
